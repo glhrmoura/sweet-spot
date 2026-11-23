@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#007f59" />
+    <title>Sweet Spot · Golfe de um botão só no navegador</title>
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preload" href="/golf.riv" as="fetch" crossorigin />
+    <link rel="preload" href="/menu-idle.webp" as="image" />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <main class="app">
+      <div class="stage" id="stage" data-phase="menu" data-i18n-label="stageLabel" aria-label="Campo de golfe. Segure para carregar a tacada e solte para bater." role="application">
+        <img class="stage__poster" src="/menu-idle.webp" alt="" aria-hidden="true" />
+        <canvas class="stage__scene" id="scene"></canvas>
+        <canvas class="stage__meter" id="meter"></canvas>
+
+        <header class="hud" id="hud" hidden>
+          <button class="hud__menu" id="quit" type="button" data-i18n-label="menu" aria-label="Menu">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M5 12h14M5 17h14" /></svg>
+          </button>
+          <div class="hud__box hud__box--hole">
+            <div class="hud__stat">
+              <span class="hud__label" data-i18n="hole">Buraco</span>
+              <span class="hud__value"><span id="hole">1</span><small>/10</small></span>
+            </div>
+            <ol class="hud__track" id="track" data-i18n-label="track" aria-label="Resultado de cada buraco"></ol>
+          </div>
+          <div class="hud__box hud__box--right">
+            <span class="hud__label" data-i18n="points">Pontos</span>
+            <span class="hud__value" id="score">0</span>
+          </div>
+        </header>
+
+        <p class="streak" id="streak" hidden></p>
+        <p class="toast" id="toast" aria-live="assertive"></p>
+        <p class="hint" id="hint" data-i18n="hint" hidden>Pressione e segure</p>
+
+        <section class="page page--menu" id="menu">
+          <h1 class="title">Sweet Spot</h1>
+          <p class="chip" id="menuBest" hidden></p>
+          <div class="menu__actions">
+            <button class="cta" id="start" type="button" data-i18n="play">Jogar</button>
+            <button class="ghost" id="openSettings" type="button" data-i18n="settings">Configurações</button>
+          </div>
+        </section>
+
+        <section class="page page--settings" id="settings" hidden>
+          <h2 class="page__title" data-i18n="settings">Configurações</h2>
+          <div class="block">
+            <p class="panel__kicker" data-i18n="language">Idioma</p>
+            <div class="langs">
+              <button class="lang" type="button" data-lang="pt-BR">
+                <span class="lang__code">PT</span>
+                <span class="lang__name">Português</span>
+              </button>
+              <button class="lang" type="button" data-lang="en">
+                <span class="lang__code">EN</span>
+                <span class="lang__name">English</span>
+              </button>
+            </div>
+          </div>
+          <div class="block">
+            <p class="panel__kicker" data-i18n="difficulty">Dificuldade</p>
+            <div class="diffs">
+              <button class="diff" type="button" data-diff="easy" data-i18n="easy">Fácil</button>
+              <button class="diff" type="button" data-diff="medium" data-i18n="medium">Médio</button>
+              <button class="diff" type="button" data-diff="hard" data-i18n="hard">Difícil</button>
+            </div>
+          </div>
+          <button class="cta" id="closeSettings" type="button" data-i18n="back">Voltar</button>
+        </section>
+
+        <section class="panel" id="over" hidden>
+          <div class="panel__card">
+            <p class="panel__kicker" data-i18n="gameOver">Fim de jogo</p>
+            <p class="big" id="final">0</p>
+            <p class="panel__text" id="verdict"></p>
+            <dl class="stats">
+              <div><dt data-i18n="hits">Acertos</dt><dd id="hits">0</dd></div>
+              <div><dt data-i18n="perfects">Perfeitas</dt><dd id="perfects">0</dd></div>
+              <div><dt data-i18n="best">Recorde</dt><dd id="best">0</dd></div>
+            </dl>
+            <button class="cta" id="again" type="button" data-i18n="again">Jogar de novo</button>
+            <button class="ghost" id="toMenu" type="button" data-i18n="menu">Menu</button>
+          </div>
+        </section>
+      </div>
+    </main>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
