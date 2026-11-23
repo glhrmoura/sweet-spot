@@ -24,13 +24,8 @@ function setPhase(phase: Phase): void {
   stage.dataset.phase = phase;
 }
 
-function setFlipped(flipped: boolean): void {
-  sceneCanvas.classList.toggle('is-flipped', flipped);
-}
-
 function resetScene(): void {
   setIdle(false);
-  setFlipped(false);
   restartScene();
 }
 
@@ -92,7 +87,6 @@ export function handleBusy(): void {
 export function handleResult(outcome: Outcome): void {
   if (game.phase !== 'flight' || !game.pending) return;
   setPhase('result');
-  setFlipped(true);
   showMeter(false);
   const { perfect } = game.pending;
   game.pending = null;
@@ -183,7 +177,6 @@ export function showMenu(): void {
   ui.hint.hidden = true;
   ui.streak.hidden = true;
   sceneCanvas.classList.remove('is-hidden');
-  setFlipped(false);
   if (fromPlay) resetScene();
   setPhase('menu');
   ui.over.hidden = true;
