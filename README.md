@@ -4,7 +4,7 @@
 
 ## Sweet Spot
 
-Sweet Spot is a quick one-button golf game for the browser: hold to charge your swing, watch the flag swing back and forth across the power bar, and let go right on the green zone to sink the shot. Ten holes, a streak bonus for consecutive hits, three difficulty levels that ramp up hole after hole, and a best score that sticks around, all playable with mouse, touch or the space bar, in Portuguese or English.
+Sweet Spot is one-tap golf for the browser where it all comes down to timing. Ten holes, a pace that keeps picking up and a best score waiting to be beaten.
 
 ### License
 
