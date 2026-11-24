@@ -6,7 +6,7 @@
 
 Sweet Spot is one-tap golf for the browser where it all comes down to timing. Ten holes, a pace that keeps picking up and a best score waiting to be beaten.
 
-Play it at [glhrmoura-sweet-spot.netlify.app](https://glhrmoura-sweet-spot.netlify.app).
+[Play Sweet Spot](https://glhrmoura-sweet-spot.netlify.app)
 
 ### License
 
