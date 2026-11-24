@@ -17,6 +17,7 @@ const pick = <T>(list: readonly T[]): T => list[Math.floor(Math.random() * list.
 function setIdle(idle: boolean): void {
   game.atIdle = idle;
   stage.classList.toggle('is-idle', idle);
+  if (idle) stage.classList.remove('is-entering');
 }
 
 function setPhase(phase: Phase): void {
@@ -156,7 +157,10 @@ export function newGame(): void {
   ui.hud.hidden = false;
   renderHud();
   if (game.atIdle) enterAim();
-  else setPhase('waitIdle');
+  else {
+    stage.classList.add('is-entering');
+    setPhase('waitIdle');
+  }
 }
 
 export function handleReady(): void {
@@ -172,7 +176,7 @@ export function showMenu(): void {
   game.pending = null;
   cancelAnimationFrame(frame);
   hideToast();
-  stage.classList.remove('is-charging');
+  stage.classList.remove('is-charging', 'is-entering');
   showMeter(false);
   ui.hint.hidden = true;
   ui.streak.hidden = true;
