@@ -92,6 +92,15 @@ body {
   transition: none;
 }
 
+.stage.is-entering .stage__poster {
+  opacity: 1;
+}
+
+.stage.is-entering .stage__scene {
+  opacity: 0;
+  transition: none;
+}
+
 .stage__scene.is-hidden {
   opacity: 0;
   transition: opacity 0.2s ease;
