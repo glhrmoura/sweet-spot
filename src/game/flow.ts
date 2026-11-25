@@ -11,6 +11,7 @@ import { hideToast, toast } from '@/ui/toast';
 import { flagTimeAt, isPerfect, outcomeFor, randomPace } from '@/game/swing';
 
 let frame = 0;
+let swingQueued = false;
 
 const pick = <T>(list: readonly T[]): T => list[Math.floor(Math.random() * list.length)];
 
@@ -70,8 +71,12 @@ export function release(): void {
   setFlag(flag);
   game.pending = { outcome, perfect: isPerfect(flag, outcome) };
   setPhase('flight');
-  setIdle(false);
   setOutcome(outcome);
+  if (!game.atIdle) {
+    swingQueued = true;
+    return;
+  }
+  setIdle(false);
   swing();
 }
 
@@ -79,6 +84,11 @@ export function handleIdle(): void {
   setIdle(true);
   sceneCanvas.classList.remove('is-hidden');
   if (game.phase === 'waitIdle') enterAim();
+  if (swingQueued && game.phase === 'flight') {
+    swingQueued = false;
+    setIdle(false);
+    swing();
+  }
 }
 
 export function handleBusy(): void {
@@ -156,11 +166,9 @@ export function newGame(): void {
   ui.over.hidden = true;
   ui.hud.hidden = false;
   renderHud();
-  if (game.atIdle) enterAim();
-  else {
-    stage.classList.add('is-entering');
-    setPhase('waitIdle');
-  }
+  swingQueued = false;
+  if (!game.atIdle) stage.classList.add('is-entering');
+  enterAim();
 }
 
 export function handleReady(): void {
@@ -174,6 +182,7 @@ export function showMenu(): void {
   const fromPlay = PLAY_PHASES.includes(game.phase);
   game.run += 1;
   game.pending = null;
+  swingQueued = false;
   cancelAnimationFrame(frame);
   hideToast();
   stage.classList.remove('is-charging', 'is-entering');
